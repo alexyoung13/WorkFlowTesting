@@ -38,3 +38,8 @@ jobs:
     environment: ${{ needs.collab-check.outputs.approval-env }}
     steps:
       - run: echo "Workflow Approved! Starting PR Checks."
+  tests:
+    runs-on: ubuntu-latest
+    needs: [wait-for-approval]
+    steps:
+      - run: echo "Tests RUN!"
