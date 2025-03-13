@@ -1,12 +1,17 @@
-# on:
-#   pull_request:
+on:
+  pull_request_review:
 
-# jobs:
-#   # approved:
-#   #   if: github.event.review.state == 'approved'
-#   #   runs-on: ubuntu-latest
-#   #   steps:
-#   #     - run: echo "This PR was approved"
+jobs:
+  approved:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "This PR was approved"
+  tests:
+    runs-on: ubuntu-latest
+    needs: [approved]
+    steps:
+      - run: echo "Tests RUN!"
   
 #   collab-check:
 #     runs-on: ubuntu-latest
@@ -52,18 +57,4 @@
 #           minimum-approvals: 1
 #           issue-title: "Manual Approval Required for collab-check"
 #           issue-body: "Please approve or deny the deployment."
-on:
-   pull_request_review:
-     types: [submitted]
- 
-jobs:
-   approved:
-     if: github.event.review.state == 'approved'
-     runs-on: ubuntu-latest
-     steps:
-       - run: echo "This PR was approved"
-    tests:
-      runs-on: ubuntu-latest
-      needs: [approved]
-      steps:
-        - run: echo "Tests RUN!"
+
