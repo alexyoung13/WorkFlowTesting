@@ -80,9 +80,8 @@ jobs:
       - name: Display Inspector vulnerability scan results (JSON)
         run: cat ${{ steps.inspector.outputs.inspector_scan_results }}
 
-      - name: On vulnerability threshold exceeded
-        run: |
-          exit ${{ steps.inspector.outputs.vulnerability_threshold_exceeded }}
+      - name: Fail job if vulnerability threshold is exceeded
+        run: exit ${{ steps.inspector.outputs.vulnerability_threshold_exceeded }}
 
       # Unzip the build artifacts and run integration tests      
       - name: Run Integration Tests
