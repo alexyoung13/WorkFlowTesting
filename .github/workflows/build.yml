@@ -47,4 +47,9 @@ jobs:
               mkdir processedArtifacts
               touch test.txt
               echo "Tests RUN!" >> test.txt
+  # Upload processed artifacts to be used for running the integration tests in subsequent integration tests workflow
+          - uses: actions/upload-artifact@v2
+            with:
+              name: processedArtifacts
+              path: processedArtifacts/
 
