@@ -39,14 +39,19 @@ jobs:
       environment: ${{ needs.collab-check.outputs.approval-env }}
       steps:
         - run: echo "Workflow Approved! Starting PR Checks."
-  unit-tests:
+  build:
       runs-on: ubuntu-latest
       needs: [wait-for-approval]
+      permissions:
+        pull-requests: write
+        id-token: write
+        contents: read
       steps:
           - run: |
               mkdir processedArtifacts
               touch test.txt
               echo "Tests RUN!" >> test.txt
+              cp -R test.txt processedArtifacts/
   # Upload processed artifacts to be used for running the integration tests in subsequent integration tests workflow
           - uses: actions/upload-artifact@v4
             with:
